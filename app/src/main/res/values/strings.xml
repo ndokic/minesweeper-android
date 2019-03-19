@@ -2,8 +2,12 @@
     <string name="app_name">minesweeper-android</string>
     <string name="text_new_game">New Game</string>
     <string name="text_settings">Settings</string>
-    <string name="text_easy">Easy</string>
-    <string name="text_medium">Medium</string>
-    <string name="text_hard">Hard</string>
+    <string name="text_easy">Easy 9x9</string>
+    <string name="text_medium">Medium 16x16</string>
+    <string name="text_hard">Hard 16x32</string>
     <string name="text_custom">Custom</string>
+
+    <string name="text_custom_rows">Rows: %d</string>
+    <string name="text_custom_cols">Collumns: %d</string>
+    <string name="text_custom_mines">Mines: %d</string>
 </resources>

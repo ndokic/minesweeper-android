@@ -9,24 +9,118 @@
 
 
     <Button android:id="@+id/button_easy"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_height="50dp"
             android:text="@string/text_easy"
             android:onClick="onClickEasy"
             app:layout_constraintTop_toTopOf="parent"
     />
     <Button android:id="@+id/button_medium"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_height="50dp"
             android:text="@string/text_medium"
             app:layout_constraintTop_toBottomOf="@id/button_easy"
+            android:onClick="onClickMedium"
     />
     <Button android:id="@+id/button_hard"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_height="50dp"
             android:text="@string/text_hard"
             app:layout_constraintTop_toBottomOf="@id/button_medium"
-
+            android:onClick="onClickHard"
     />
+    <Button android:id="@+id/button_custom"
+            android:layout_width="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_height="50dp"
+            android:text="@string/text_custom"
+            app:layout_constraintTop_toBottomOf="@id/button_medium"
+            android:onClick="onClickCustom"
+    />
+    <LinearLayout android:id="@+id/layout_cols_custom"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/button_custom"
+    >
+
+        <TextView
+                android:id="@+id/textViewCol"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <SeekBar
+                android:id="@+id/seekBarCol"
+                android:max="100"
+                android:min="7"
+                android:progress="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/layout_rows_custom"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/layout_cols_custom"
+    >
+
+        <TextView
+                android:id="@+id/textViewRow"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <SeekBar
+                android:id="@+id/seekBarRow"
+                android:max="100"
+                android:min="7"
+                android:progress="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/layout_rows_custom"
+    >
+
+        <TextView
+                android:id="@+id/textViewMines"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <SeekBar
+                android:id="@+id/seekBarMines"
+                android:max="99"
+                android:min="1"
+                android:progress="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

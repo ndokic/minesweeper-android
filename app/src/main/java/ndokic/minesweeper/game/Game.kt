@@ -77,6 +77,7 @@ class Game(val col:Int, val row:Int, val numOfMines : Int) {
             it.button.setBackgroundResource(R.color.colorPrimary)
         } }
     }
+
     fun mineClicked(field: GameField) {
         fields.forEach { if(it.hasMine) {
             it.button.setText("*")

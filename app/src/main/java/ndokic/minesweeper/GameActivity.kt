@@ -10,13 +10,20 @@ import ndokic.minesweeper.game.Game
 import ndokic.minesweeper.game.GameField
 
 class GameActivity : AppCompatActivity() {
-    val rows = 9
-    val cols = 9
-    val game = Game(cols, rows, 10)
+    var rows : Int = 0
+    var cols : Int = 0
+    var mines : Int = 0
+
+    lateinit var game :Game //Game(cols, rows, 10)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
+
+        rows = intent.getIntExtra(TAG_GAME_ROWS, 9)
+        cols = intent.getIntExtra(TAG_GAME_COLS, 9)
+        mines = intent.getIntExtra(TAG_GAME_MINES, 10)
+        game = Game(cols, rows, mines)
         createGameLayout()
     }
 
