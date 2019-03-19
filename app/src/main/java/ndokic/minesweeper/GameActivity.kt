@@ -34,6 +34,9 @@ class GameActivity : AppCompatActivity() {
                 val field = GameField(game, game.fields.size, cols, rows, button)
                 button.setOnClickListener {game.fieldClick(field)}
                 button.setOnLongClickListener { game.fieldMarkedMine(field) }
+                val lp =  LinearLayout.LayoutParams(60, 60)
+                lp.setMargins(2,2,2,2)
+                button.layoutParams =lp
                 row.addView(button)
                 game.fields.add(field)
             }
