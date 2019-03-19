@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import ndokic.minesweeper.game.Game
+import ndokic.minesweeper.game.GameField
 
 class GameActivity : AppCompatActivity() {
     val rows = 9
     val cols = 9
+    val game = Game(cols, rows, 20)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +31,10 @@ class GameActivity : AppCompatActivity() {
 
             for (j in 1..cols) {
                 val button =  inflater.inflate(R.layout.game_button, null) as Button
-
-                button.setOnClickListener { (it as Button).setText("C")}
+                val field = GameField(game, game.fields.size, cols, rows, button)
+                button.setOnClickListener {game.fieldClick(field)}
                 row.addView(button)
-
+                game.fields.add(field)
             }
         }
     }

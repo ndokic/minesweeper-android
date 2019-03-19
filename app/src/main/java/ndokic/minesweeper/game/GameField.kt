@@ -2,14 +2,16 @@ package ndokic.minesweeper.game
 
 import android.widget.Button
 
-class GameField(val game: Game, val index: Int, val col : Int, val row : Int) {
+class GameField(val game: Game, val index: Int, val col : Int, val row : Int, val button : Button) {
     var hasMine = false
     var neighborsWithMines: Int = 0
     var state = FieldState.UNREVEALED
 
     val neighbors : ArrayList<Int> = ArrayList()
 
-
+    init {
+        findNeighbors()
+    }
 
     fun findNeighbors() {
         neighbors.add(top(left(index)))
