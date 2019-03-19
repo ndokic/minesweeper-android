@@ -37,5 +37,8 @@ class GameActivity : AppCompatActivity() {
                 game.fields.add(field)
             }
         }
+
+        game.initGame(5)
+
     }
 }
