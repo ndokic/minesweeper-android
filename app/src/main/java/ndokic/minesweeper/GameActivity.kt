@@ -1,20 +1,26 @@
 package ndokic.minesweeper
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import ndokic.minesweeper.game.Game
 import ndokic.minesweeper.game.GameField
 
-class GameActivity : AppCompatActivity() {
+class GameActivity : AppCompatActivity(), Game.GameChangeListener  {
+
+
     var rows : Int = 0
     var cols : Int = 0
     var mines : Int = 0
 
     lateinit var game :Game //Game(cols, rows, 10)
+    private val textTime: TextView by bind(R.id.text_time)
+    private val textMines: TextView by bind(R.id.text_mines)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +29,7 @@ class GameActivity : AppCompatActivity() {
         rows = intent.getIntExtra(TAG_GAME_ROWS, 9)
         cols = intent.getIntExtra(TAG_GAME_COLS, 9)
         mines = intent.getIntExtra(TAG_GAME_MINES, 10)
-        game = Game(cols, rows, mines)
+        game = Game(cols, rows, mines, this)
         createGameLayout()
     }
 
@@ -48,8 +54,21 @@ class GameActivity : AppCompatActivity() {
                 game.fields.add(field)
             }
         }
-
-     //   game.initGame(5)
-
     }
+
+    override fun onGameWon() {
+        //AlertDialog.Builder(this).setTitle(R.string.text_dialog_won)
+    }
+
+    override fun onBusted() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun minesLeftChange(minesLeft: Int) {
+        textMines.setText(minesLeft.toString())
+    }
+    override fun updateTime(time : String) {
+        textTime.setText(time)
+    }
+
 }

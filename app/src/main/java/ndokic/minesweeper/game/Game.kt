@@ -1,13 +1,18 @@
 package ndokic.minesweeper.game
 
+import android.os.Handler
 import android.util.Log
 import ndokic.minesweeper.R
+import android.support.v4.os.HandlerCompat.postDelayed
 
-class Game(val col:Int, val row:Int, val numOfMines : Int) {
+
+
+class Game(val col:Int, val row:Int, val numOfMines : Int, val gameChangeListener: GameChangeListener) {
     val fields: ArrayList<GameField> = ArrayList()
     val size = row * col
     var gameState = GameState.UNINITIAZED
     var minesPlaced = 0
+    var minesFound = 0
     var moves = 0
     var revealedFields = 0
     var fieldsToReveal = size - numOfMines
@@ -17,6 +22,7 @@ class Game(val col:Int, val row:Int, val numOfMines : Int) {
 
         field.button.setText("*")
         field.state = FieldState.MINE
+        gameChangeListener.minesLeftChange(numOfMines - ++minesFound)
         return true
     }
 
@@ -35,6 +41,8 @@ class Game(val col:Int, val row:Int, val numOfMines : Int) {
     fun clearMine(field: GameField) {
         field.button.setText("");
         field.state = FieldState.UNREVEALED
+        gameChangeListener.minesLeftChange(numOfMines - --minesFound)
+
     }
 
     fun checkField(field : GameField) {
@@ -91,6 +99,10 @@ class Game(val col:Int, val row:Int, val numOfMines : Int) {
         initMines(clickedIndex)
         initFields()
 
+        gameChangeListener.minesLeftChange(numOfMines)
+        startTime = System.currentTimeMillis()
+        timerHandler.post(timer)
+
         /*fields.forEach {
             if (it.hasMine) it.button.setText("*") else if(it.neighborsWithMines >0)it.button.setText(""+it.neighborsWithMines)
         }*/
@@ -122,5 +134,26 @@ class Game(val col:Int, val row:Int, val numOfMines : Int) {
                 it.neighborsWithMines = neighborsWithMines
             }
         }
+    }
+    var startTime : Long = 0;
+    val timerHandler = Handler();
+    val timer : Runnable = object : Runnable{
+        override fun run() {
+            val millis = System.currentTimeMillis() - startTime
+            var seconds = (millis / 1000)
+            val minutes = seconds / 60
+            seconds = seconds.rem( 60);
+            gameChangeListener.updateTime(String.format("%d:%02d", minutes, seconds))
+            if(gameState == GameState.STARTED) //stop when game state changes
+                    timerHandler.postDelayed(this, 500)
+        }
+    }
+
+
+    interface GameChangeListener {
+        fun onGameWon()
+        fun onBusted()
+        fun minesLeftChange(minesLeft : Int)
+        fun updateTime(time : String)
     }
 }

@@ -10,4 +10,6 @@
     <string name="text_custom_rows">Rows: %d</string>
     <string name="text_custom_cols">Collumns: %d</string>
     <string name="text_custom_mines">Mines: %d</string>
+
+    <string name="text_dialog_won">You Won!</string>
 </resources>
