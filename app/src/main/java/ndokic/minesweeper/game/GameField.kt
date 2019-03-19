@@ -2,7 +2,7 @@ package ndokic.minesweeper.game
 
 import android.widget.Button
 
-class GameField(val index: Int, val col : Int, val row : Int) {
+class GameField(val game: Game, val index: Int, val col : Int, val row : Int) {
     var hasMine = false
     var neighborsWithMines: Int = 0
     var state = FieldState.UNREVEALED
@@ -10,7 +10,7 @@ class GameField(val index: Int, val col : Int, val row : Int) {
     val neighbors : ArrayList<Int> = ArrayList()
 
 
-    
+
     fun findNeighbors() {
         neighbors.add(top(left(index)))
         neighbors.add(top(index))
