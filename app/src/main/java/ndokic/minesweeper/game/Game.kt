@@ -1,6 +1,7 @@
 package ndokic.minesweeper.game
 
 import android.util.Log
+import ndokic.minesweeper.R
 
 class Game(val col:Int, val row:Int, val numOfMines : Int) {
     val fields: ArrayList<GameField> = ArrayList()
@@ -9,16 +10,49 @@ class Game(val col:Int, val row:Int, val numOfMines : Int) {
     var minesPlaced = 0
 
     fun fieldClick(field : GameField) {
-        field.neighbors.forEach {
-            fields[it].button.setText("A") }
+        if(gameState == GameState.UNINITIAZED) {
+            initGame(field.index)
+            gameState = GameState.STARTED
+            fieldClick(field)
+        }
+        if(gameState == GameState.STARTED) {
+            checkField(field)
+        }
     }
 
+
+    fun checkField(field : GameField) {
+        if(field.hasMine) {
+            mineClicked(field)
+        } else {
+            openField(field)
+        }
+    }
+
+    fun openField(field : GameField) {
+        if (field.hasMine || field.state == FieldState.REVEALED) return
+        if(field.neighborsWithMines >0)
+        {
+            field.button.setText(field.neighborsWithMines.toString())
+            field.state = FieldState.REVEALED
+        }
+        else {
+            field.button.setBackgroundResource(R.color.colorButtonOpen)
+            field.state = FieldState.REVEALED
+            field.neighbors.forEach { openField(fields[it]) }
+        }
+    }
+
+    fun mineClicked(field: GameField) {
+        field.button.setText("M") //TODO game over
+    }
     fun initGame(clickedIndex: Int) {
         initMines(clickedIndex)
+        initFields()
 
-        fields.forEach {
-            if (it.hasMine) it.button.setText("*")
-        }
+        /*fields.forEach {
+            if (it.hasMine) it.button.setText("*") else if(it.neighborsWithMines >0)it.button.setText(""+it.neighborsWithMines)
+        }*/
     }
 
     fun initMines(clickedIndex : Int ) { //We do not want a mine on field that is clicked first
@@ -36,5 +70,16 @@ class Game(val col:Int, val row:Int, val numOfMines : Int) {
             }
         }
         if(minesPlaced < numOfMines) initMines(clickedIndex)
+    }
+    fun initFields() {
+        fields.forEach {
+            if (!it.hasMine) {
+                var neighborsWithMines = 0;
+                it.neighbors.forEach {
+                    if (fields[it].hasMine) neighborsWithMines++
+                }
+                it.neighborsWithMines = neighborsWithMines
+            }
+        }
     }
 }

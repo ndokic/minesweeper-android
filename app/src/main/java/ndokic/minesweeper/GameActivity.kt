@@ -12,7 +12,7 @@ import ndokic.minesweeper.game.GameField
 class GameActivity : AppCompatActivity() {
     val rows = 9
     val cols = 9
-    val game = Game(cols, rows, 20)
+    val game = Game(cols, rows, 10)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        game.initGame(5)
+     //   game.initGame(5)
 
     }
 }
