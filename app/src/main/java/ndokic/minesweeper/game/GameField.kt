@@ -39,10 +39,10 @@ class GameField(val game: Game, val index: Int, val col : Int, val row : Int, va
     }
     fun top(n : Int) :Int {
         if(n<0) return -1;
-        return if(n-row > 0) n - row else -1
+        return if(n-col > 0) n - col else -1
     }
     fun bottom(n : Int) :Int {
         if(n<0) return -1;
-        return if ( n+row < col*row) n+row else -1
+        return if ( n+col < col*row) n+col else -1
     }
 }

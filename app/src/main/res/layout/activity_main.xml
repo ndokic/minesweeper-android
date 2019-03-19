@@ -10,6 +10,7 @@
 
     <Button android:id="@+id/button_easy"
             android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_height="50dp"
@@ -19,6 +20,7 @@
     />
     <Button android:id="@+id/button_medium"
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_height="50dp"
@@ -28,6 +30,7 @@
     />
     <Button android:id="@+id/button_hard"
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_height="50dp"
@@ -37,11 +40,12 @@
     />
     <Button android:id="@+id/button_custom"
             android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_height="50dp"
             android:text="@string/text_custom"
-            app:layout_constraintTop_toBottomOf="@id/button_medium"
+            app:layout_constraintTop_toBottomOf="@id/button_hard"
             android:onClick="onClickCustom"
     />
     <LinearLayout android:id="@+id/layout_cols_custom"
