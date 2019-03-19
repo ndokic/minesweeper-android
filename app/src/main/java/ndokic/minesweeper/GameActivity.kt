@@ -33,6 +33,7 @@ class GameActivity : AppCompatActivity() {
                 val button =  inflater.inflate(R.layout.game_button, null) as Button
                 val field = GameField(game, game.fields.size, cols, rows, button)
                 button.setOnClickListener {game.fieldClick(field)}
+                button.setOnLongClickListener { game.fieldMarkedMine(field) }
                 row.addView(button)
                 game.fields.add(field)
             }

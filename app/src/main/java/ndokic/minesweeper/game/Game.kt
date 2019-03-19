@@ -9,7 +9,15 @@ class Game(val col:Int, val row:Int, val numOfMines : Int) {
     var gameState = GameState.UNINITIAZED
     var minesPlaced = 0
 
+
+    fun fieldMarkedMine(field: GameField) : Boolean{
+        field.button.setText("*")
+        field.state = FieldState.MINE
+        return true
+    }
+
     fun fieldClick(field : GameField) {
+
         if(gameState == GameState.UNINITIAZED) {
             initGame(field.index)
             gameState = GameState.STARTED
@@ -20,8 +28,16 @@ class Game(val col:Int, val row:Int, val numOfMines : Int) {
         }
     }
 
+    fun clearMine(field: GameField) {
+        field.button.setText("");
+        field.state = FieldState.UNREVEALED
+    }
 
     fun checkField(field : GameField) {
+        if(field.state == FieldState.MINE) {
+            clearMine(field)
+        }
+
         if(field.hasMine) {
             mineClicked(field)
         } else {
@@ -34,17 +50,23 @@ class Game(val col:Int, val row:Int, val numOfMines : Int) {
         if(field.neighborsWithMines >0)
         {
             field.button.setText(field.neighborsWithMines.toString())
+            field.button.isClickable = false;
             field.state = FieldState.REVEALED
         }
         else {
             field.button.setBackgroundResource(R.color.colorButtonOpen)
+            field.button.isClickable = false;
             field.state = FieldState.REVEALED
             field.neighbors.forEach { openField(fields[it]) }
         }
     }
 
     fun mineClicked(field: GameField) {
-        field.button.setText("M") //TODO game over
+        fields.forEach { if(it.hasMine) {
+            it.button.setText("*")
+            it.button.setBackgroundResource(R.color.colorAccent)
+        } }
+         //TODO game over
     }
     fun initGame(clickedIndex: Int) {
         initMines(clickedIndex)
