@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
@@ -47,7 +48,7 @@ class GameActivity : AppCompatActivity(), Game.GameChangeListener  {
 
             for (j in 1..cols) {
                 val button =  inflater.inflate(R.layout.game_button, null) as Button
-                val field = GameField(game, game.fields.size, cols, rows, button)
+                val field = GameField(game.fields.size, cols, rows, button)
                 button.setOnClickListener {game.fieldClick(field)}
                 button.setOnLongClickListener { game.fieldMarkedMine(field) }
                 val lp =  LinearLayout.LayoutParams(60, 60)
@@ -65,16 +66,23 @@ class GameActivity : AppCompatActivity(), Game.GameChangeListener  {
         textMines.setText(mines.toString())
         textTime.setText("0:00")
     }
-    
+
+    fun onClickHint(v : View) {
+
+        game.hint()
+    }
     override fun onGameWon() {
         AlertDialog.Builder(this).setTitle(R.string.text_dialog_won_title).setMessage(resources.getString(R.string.text_dialog_won_message, textTime.text, game.moves))
             .setPositiveButton(R.string.text_play_again,  { dialog, i -> playAgain() })
-            .setNegativeButton(R.string.text_go_back, {dialog, i-> finish()} ).show()
+            .setNegativeButton(R.string.text_go_back, {dialog, i-> finish()} )
+            .setCancelable(false)
+            .show()
     }
 
     override fun onBusted() {
         AlertDialog.Builder(this).setTitle(R.string.text_dialog_lost_title).setMessage(R.string.text_dialog_lost_message)
             .setPositiveButton(R.string.text_play_again,  { dialog, i -> playAgain() })
+            .setCancelable(false)
             .setNegativeButton(R.string.text_go_back, {dialog, i-> finish()} ).show()
     }
 

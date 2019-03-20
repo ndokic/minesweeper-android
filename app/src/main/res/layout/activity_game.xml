@@ -42,6 +42,12 @@
                android:textColor="@color/colorPrimaryDark"
                android:textSize="22sp"
      />
+     <Button android:layout_width="40dp"
+             android:layout_height="40dp"
+             android:text="/?"
+             android:textSize="20dp"
+             android:onClick="onClickHint"
+     />
  </LinearLayout>
     <com.otaliastudios.zoom.ZoomLayout
             android:layout_width="match_parent"

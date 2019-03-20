@@ -2,7 +2,7 @@ package ndokic.minesweeper.game
 
 import android.widget.Button
 
-class GameField(val game: Game, val index: Int, val col : Int, val row : Int, val button : Button) {
+class GameField(val index: Int, val col : Int, val row : Int, val button : Button) {
     var hasMine = false
     var neighborsWithMines: Int = 0
     var state = FieldState.UNREVEALED
