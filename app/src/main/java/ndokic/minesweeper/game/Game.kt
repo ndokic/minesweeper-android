@@ -48,7 +48,7 @@ class Game(val col:Int, val row:Int, val numOfMines : Int, val gameChangeListene
 
     fun checkField(field : GameField) {
         moves++
-        field.button.setBackgroundResource(R.color.colorPrimaryDark) //reset hint color when you click on it
+
         if(field.state == FieldState.MINE) {
             clearMine(field)
             return
@@ -66,6 +66,7 @@ class Game(val col:Int, val row:Int, val numOfMines : Int, val gameChangeListene
         if(field.neighborsWithMines >0)
         {
             field.button.setText(field.neighborsWithMines.toString())
+            field.button.setBackgroundResource(R.color.colorPrimaryDark) //reset hint color when you click on it
             revealField(field)
         }
         else {
