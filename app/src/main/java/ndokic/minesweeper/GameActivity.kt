@@ -1,5 +1,6 @@
 package ndokic.minesweeper
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import ndokic.minesweeper.game.Game
 import ndokic.minesweeper.game.GameField
 
@@ -36,6 +38,7 @@ class GameActivity : AppCompatActivity(), Game.GameChangeListener  {
     fun createGameLayout() {
         val inflater = LayoutInflater.from(this)
         val rootLayout = findViewById<LinearLayout>(R.id.layout_root)
+        rootLayout.removeAllViews()
         for (i in 1..rows) {
             val row = LinearLayout(this)
             row.orientation = LinearLayout.HORIZONTAL
@@ -56,12 +59,23 @@ class GameActivity : AppCompatActivity(), Game.GameChangeListener  {
         }
     }
 
+    fun playAgain() {
+        game = Game(cols, rows, mines, this)
+        createGameLayout()
+        textMines.setText(mines.toString())
+        textTime.setText("0:00")
+    }
+    
     override fun onGameWon() {
-        //AlertDialog.Builder(this).setTitle(R.string.text_dialog_won)
+        AlertDialog.Builder(this).setTitle(R.string.text_dialog_won_title).setMessage(resources.getString(R.string.text_dialog_won_message, textTime.text, game.moves))
+            .setPositiveButton(R.string.text_play_again,  { dialog, i -> playAgain() })
+            .setNegativeButton(R.string.text_go_back, {dialog, i-> finish()} ).show()
     }
 
     override fun onBusted() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        AlertDialog.Builder(this).setTitle(R.string.text_dialog_lost_title).setMessage(R.string.text_dialog_lost_message)
+            .setPositiveButton(R.string.text_play_again,  { dialog, i -> playAgain() })
+            .setNegativeButton(R.string.text_go_back, {dialog, i-> finish()} ).show()
     }
 
     override fun minesLeftChange(minesLeft: Int) {

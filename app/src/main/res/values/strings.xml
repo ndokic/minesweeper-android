@@ -11,5 +11,12 @@
     <string name="text_custom_cols">Collumns: %d</string>
     <string name="text_custom_mines">Mines: %d</string>
 
-    <string name="text_dialog_won">You Won!</string>
+    <string name="text_dialog_won_title">You Won!</string>
+    <string name="text_dialog_won_message">You won the game in %s time, using %d moves</string>
+
+    <string name="text_dialog_lost_title">You Lost!</string>
+    <string name="text_dialog_lost_message">You lost</string>
+
+    <string name="text_play_again">Play Again!</string>
+    <string name="text_go_back">Go Back</string>
 </resources>

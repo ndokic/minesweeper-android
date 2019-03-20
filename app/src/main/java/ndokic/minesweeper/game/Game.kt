@@ -19,7 +19,7 @@ class Game(val col:Int, val row:Int, val numOfMines : Int, val gameChangeListene
 
 
     fun fieldMarkedMine(field: GameField) : Boolean{ //called on long press
-
+        moves ++
         field.button.setText("*")
         field.state = FieldState.MINE
         gameChangeListener.minesLeftChange(numOfMines - ++minesFound)
@@ -39,6 +39,7 @@ class Game(val col:Int, val row:Int, val numOfMines : Int, val gameChangeListene
     }
 
     fun clearMine(field: GameField) {
+        moves++
         field.button.setText("");
         field.state = FieldState.UNREVEALED
         gameChangeListener.minesLeftChange(numOfMines - --minesFound)
@@ -46,8 +47,10 @@ class Game(val col:Int, val row:Int, val numOfMines : Int, val gameChangeListene
     }
 
     fun checkField(field : GameField) {
+        moves++
         if(field.state == FieldState.MINE) {
             clearMine(field)
+            return
         }
 
         if(field.hasMine) {
@@ -84,6 +87,7 @@ class Game(val col:Int, val row:Int, val numOfMines : Int, val gameChangeListene
             it.button.setText("*")
             it.button.setBackgroundResource(R.color.colorPrimary)
         } }
+        gameChangeListener.onGameWon()
     }
 
     fun mineClicked(field: GameField) {
@@ -93,7 +97,7 @@ class Game(val col:Int, val row:Int, val numOfMines : Int, val gameChangeListene
         } }
 
         gameState = GameState.BUSTED
-         //TODO game over
+        gameChangeListener.onBusted()
     }
     fun initGame(clickedIndex: Int) {
         initMines(clickedIndex)
